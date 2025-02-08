@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Simple Interest</title>
+    <style>
+        /* Center everything in the viewport */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: rgb(255, 255, 255);
+            margin: 0;
+        }
+
+        /* Heading styling */
+        h1 {
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-bottom: 20px;
+        }
+
+        /* Box container holding input and output sections */
+        .boxes {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgb(240, 204, 225);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            width: 50%;
+            gap: 40px; /* Adds space between the two boxes */
+        }
+
+        /* Individual box styling */
+        .box {
+            padding: 20px;
+            border-radius: 10px;
+            background-color: white;
+            width: 45%;
+            text-align: center;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Input styling */
+        input, button {
+            display: block;
+            width: 90%;
+            padding: 8px;
+            margin: 10px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Button styling */
+        button {
+            background-color: rgb(87, 86, 82);
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+        }
+
+        button:hover {
+            background-color: rgb(179, 177, 172);
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculate Simple Interest</h1>
+
+    <div class="boxes">
+        <!-- Input Box -->
+        <div class="box">
+            <label for="PA">Principal Amount</label>
+            <input type="number" placeholder="Enter principal amount" id="PA">
+
+            <label for="Time">Time</label>
+            <input type="number" placeholder="Enter time in years" id="Time">
+
+            <label for="ROI">Rate of Interest</label>
+            <input type="number" placeholder="Enter rate of interest" id="ROI">
+
+            <button onclick="Calculate()">Calculate Simple Interest</button>
+        </div>
+
+        <!-- Output Box -->
+        <div class="box">
+            <h2>Results</h2>
+            <p><strong>Total Amount:</strong> <span id="total">---</span></p>
+            <p><strong>Interest Earned:</strong> <span id="interest">---</span></p>
+        </div>
+    </div>
+    <script>
+        async function Calculate(){
+            const p=parseFloat(document.getElementById("PA").value)||0;
+            const t=parseFloat(document.getElementById("Time").value)||0;
+            const r=parseFloat(document.getElementById("ROI").value)||0;
+            const answer = await fetch(`http://localhost:3000/simpleInterest?p=${p}&t=${t}&r=${r}`);
+            const answerJson=await answer.json();
+            document.getElementById("interest").innerText = answerJson.Interest.toFixed(2);
+            document.getElementById("total").innerText = answerJson.Total.toFixed(2);
+        }
+    </script>
+</body>
+</html>
