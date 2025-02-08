@@ -10,11 +10,11 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: rgb(255, 255, 255);
+            background-color: rgb(232, 244, 242);
             margin: 0;
         }
 
-        /* Heading styling */
+        /* Heading styling */ 
         h1 {
             text-align: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -79,7 +79,14 @@
         </div>
     </div>
     <script>
-        async function Calculate(){
+        let timeout;
+        function Calculate(){
+            clearTimeout(timeout);
+            timeout=setTimeout(function(){
+                Calculate2();
+            },1000)
+        }
+        async function Calculate2(){
             const p=parseFloat(document.getElementById("PA").value)||0;
             const t=parseFloat(document.getElementById("Time").value)||0;
             const r=parseFloat(document.getElementById("ROI").value)||0;
@@ -88,6 +95,15 @@
             document.getElementById("interest").innerText = answerJson.Interest.toFixed(2);
             document.getElementById("total").innerText = answerJson.Total.toFixed(2);
         }
+        document.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            const inputs = Array.from(document.querySelectorAll("input"));
+            const index = inputs.indexOf(document.activeElement);
+            if (index !== -1 && index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        }
+    });
     </script>
 </body>
 </html>
