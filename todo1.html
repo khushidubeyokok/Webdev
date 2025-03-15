@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TODO List</title>
+</head>
+<body>
+    <div>
+        <input type="text" placeholder="Title" id="title">
+        <input type="text" placeholder="Description" id="desc">
+        <button onclick="add()">Add Todo</button>
+    </div>
+
+    <br><br>
+
+    <table id="table" border="1">
+        <tr>
+            <th>Todo list</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+    </table>
+
+    <script>
+        function add() {
+            const title = document.getElementById("title").value;
+            const desc = document.getElementById("desc").value;
+
+            if (!title || !desc) {
+                alert("Please fill in both fields!");
+                return;
+            }
+
+            let table = document.getElementById("table");
+            let newRow = table.insertRow();
+
+            let cell1 = newRow.insertCell(0);
+            let cell2 = newRow.insertCell(1);
+            let cell3 = newRow.insertCell(2);
+
+            cell1.innerHTML = title;
+            cell2.innerHTML = desc;
+            cell3.innerHTML = '<button onclick="markDone(this)">Mark as Done</button>';
+            
+            // Clear inputs after adding
+            document.getElementById("title").value = "";
+            document.getElementById("desc").value = "";
+        }
+
+        function markDone(button) {
+            button.innerText = "Done";
+            button.disabled = true; // Disable the button
+            button.style.backgroundColor = "gray"; // Change color to indicate completion
+        }
+    </script>
+
+</body>
+</html>
